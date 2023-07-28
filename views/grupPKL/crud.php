@@ -10,11 +10,13 @@ $query  = "SELECT grouppkl.*,
             pembimbing.sekolah,
             siswa.ni AS ni_siswa,
             siswa.nama AS nama_siswa,
-            siswa.status
+            siswa.status,
+            pembimbing_siswa.sekolah AS sekolah_siswa
             FROM grouppkl
             LEFT JOIN admin ON grouppkl.admin_id = admin.id
             LEFT JOIN pembimbing ON grouppkl.pembimbing_id = pembimbing.id
-            LEFT JOIN siswa ON grouppkl.siswa_id = siswa.id;";
+            LEFT JOIN siswa ON grouppkl.siswa_id = siswa.id
+            LEFT JOIN pembimbing AS pembimbing_siswa ON siswa.pembimbing_id = pembimbing_siswa.id;";
 $data = mysqli_query($conn, $query);
 
 //pilih siswa 
@@ -67,12 +69,13 @@ if(isset($_POST["hapus"])){
 function tambahgrupPKL($data){
     global $conn;
 
+    $namaGrup       = $_POST["namaGrup"];
     $siswa_id       = $_POST["siswa_id"];
     $admin_id       = $_POST["admin_id"];
     $pembimbing_id  = $_POST["pembimbing_id"];
-    $nama           = date("Y");
+    $nama           = $namaGrup . ' ' . date("Y");
     
-    if (empty($siswa_id) || empty($admin_id) || empty($pembimbing_id)) {
+    if (empty($nama) || empty($siswa_id) || empty($admin_id) || empty($pembimbing_id)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -89,15 +92,15 @@ function editgrupPKL($data){
     $siswa_id       = $_POST["siswa_id"];
     $admin_id       = $_POST["admin_id"];
     $pembimbing_id  = $_POST["pembimbing_id"];
-    $tempat_id      = $_POST["tempat_id"];
+    $nama           = $_POST["namaGrup"];
     
 
-    if (empty($siswa_id) || empty($admin_id) || empty($pembimbing_id) || empty($tempat_id)) {
+    if (empty($siswa_id) || empty($admin_id) || empty($pembimbing_id) || empty($nama)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
     else {
-            $query = "UPDATE grouppkl SET siswa_id = '$siswa_id', admin_id = '$admin_id', pembimbing_id = '$pembimbing_id', tempat_id = '$tempat_id' WHERE id = '$id'";
+            $query = "UPDATE grouppkl SET siswa_id = '$siswa_id', admin_id = '$admin_id', pembimbing_id = '$pembimbing_id', nama = '$nama' WHERE id = '$id'";
             return mysqli_query($conn, $query);
     }
 }

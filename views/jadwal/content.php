@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Daftar Jadwal Siswa</h1>
+            <h1>Daftar Jadwal Grup</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../dashboard/index_dashboard.php">Dashboard</a></li>
-              <li class="breadcrumb-item active">Jadwal Siswa</li>
+              <li class="breadcrumb-item active">Jadwal Grup</li>
             </ol>
           </div>
         </div>
@@ -24,7 +24,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Daftar Nama Sekolah</h3>
+                <h3 class="card-title">Daftar Jadwal Grup</h3>
                 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">Tambah</button>
               </div>
               <?php include "addModal.php"; ?>
@@ -34,7 +34,7 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Siswa</th>
+                    <th>Nama Grup</th>
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Akhir</th>
                     <th>Action</th>
@@ -47,7 +47,7 @@
                   ?>
                     <tr>
                       <td><?= $i++ ?></td>
-                      <td><?= $row["nama_siswa"] ?></td>
+                      <td><?= $row["nama"] ?></td>
                       <td><?= $row["tgl_mulai"] ?></td>
                       <td><?= $row["tgl_akhir"] ?></td>
                       <td>
@@ -69,7 +69,7 @@
                   <tfoot>
                     <tr>
                       <th>No</th>
-                      <th>Nama Siswa</th>
+                      <th>Nama Grup</th>
                       <th>Tanggal Mulai</th>
                       <th>Tanggal Akhir</th>
                       <th>Action</th>

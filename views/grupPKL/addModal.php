@@ -9,6 +9,15 @@
             </div>
             <form action="" method="POST">
               <div class="modal-body">
+                <!-- nama group -->
+                <div class="input-group mb-3">
+                  <input name="namaGrup" type="text" class="form-control" placeholder="nama Grup" autocomplete="off" required/>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-users-cog"></span>
+                    </div>
+                  </div>
+                </div>
                 <!-- pilih siswa -->
                 <div class="input-group mb-3">
                   <select name="siswa_id" id="siswa_id" class="form-control" required>

@@ -48,7 +48,7 @@
                   ?>
                     <tr>
                       <td><?= $i++ ?></td>
-                      <td>Angkatan <?= $row["nama"] ?> </td>
+                      <td><?= $row["nama"] ?> </td>
                       <td><?= $row["nama_siswa"] ?></td>
                       <td><?= $row["nama_admin"] ?></td>
                       <td class="

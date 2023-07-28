@@ -11,12 +11,12 @@
               <div class="modal-body">
                 <!-- pilih siswa -->
                 <div class="input-group mb-3">
-                  <select name="siswa_id" class="form-control" required>
-                    <option value=""> = Pilih Siswa = </option>
+                  <select name="grouppkl_id" class="form-control" required>
+                    <option value=""> = Pilih grup = </option>
                     <?php 
-                    foreach ($result as $row) :
+                    foreach ($grup as $groups) :
                       ?>
-                      <option value="<?= $row["id"] ?>"> <?= $row["ni"] . " - " . $row["nama"] . " - " . $row["nama_sekolah"] ?> </option>
+                      <option value="<?= $groups["id"] ?>"> <?= $groups["nama"] ?> </option>
                     <?php endforeach ?>
                   </select>
                 </div>

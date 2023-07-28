@@ -2,16 +2,19 @@
 // untuk mencari nama user
 
 // untuk tabel 
-$query      = "SELECT jadwal.*, siswa.ni AS ni_siswa, siswa.nama AS nama_siswa, sekolah_siswa.nama AS 
-            sekolah_siswa FROM jadwal 
-            LEFT JOIN siswa ON jadwal.siswa_id = siswa.id
-            LEFT JOIN sekolah AS sekolah_siswa ON siswa.sekolah_id = sekolah_siswa.id;";
+$query      = "SELECT jadwal.*, grouppkl.nama FROM jadwal
+                LEFT JOIN grouppkl ON jadwal.grouppkl_id = grouppkl.id;";
 $data = mysqli_query($conn, $query);
 
-//pilih siswa 
-$jadwal     = "SELECT siswa.id, siswa.ni, siswa.nama, sekolah.nama AS nama_sekolah FROM siswa
-            LEFT JOIN sekolah ON siswa.sekolah_id = sekolah.id WHERE status = 'proses'";
-$result = mysqli_query($conn, $jadwal);
+//cari group 
+$queryGrup = "SELECT nama, id FROM grouppkl
+                WHERE nama NOT IN (
+                    SELECT grouppkl.nama
+                    FROM jadwal
+                    LEFT JOIN grouppkl ON jadwal.grouppkl_id = grouppkl.id
+                )
+                GROUP BY nama;";
+$grup = mysqli_query($conn, $queryGrup);
 
 // insert data
 if(isset($_POST["tambah"])){
@@ -47,11 +50,11 @@ if(isset($_POST["hapus"])){
 function tambahJadwal($data){
     global $conn;
 
-    $siswa_id   = $_POST["siswa_id"];
-    $tglMulai   = $_POST["tglMulai"];
-    $tglAkhir   = $_POST["tglAkhir"];
+    $grouppkl_id    = $_POST["grouppkl_id"];
+    $tglMulai       = $_POST["tglMulai"];
+    $tglAkhir       = $_POST["tglAkhir"];
 
-    if (empty($siswa_id) || empty($tglMulai) || empty($tglAkhir)) {
+    if (empty($grouppkl_id) || empty($tglMulai) || empty($tglAkhir)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -60,7 +63,7 @@ function tambahJadwal($data){
             $_SESSION["error"] = "Tanggal akhir harus lebih besar dari tanggal mulai.";
         }
         else{
-            $query = "INSERT INTO jadwal (siswa_id, tgl_mulai, tgl_akhir) VALUES ('$siswa_id', '$tglMulai', '$tglAkhir')";
+            $query = "INSERT INTO jadwal (grouppkl_id, tgl_mulai, tgl_akhir) VALUES ('$grouppkl_id', '$tglMulai', '$tglAkhir')";
             return mysqli_query($conn, $query);
         }
     }
