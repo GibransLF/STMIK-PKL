@@ -27,7 +27,7 @@
                     </div>
                   </div>
                 </div>
-                <?php if($user == "admin" && $role["role"] == "2") :?>
+                <?php if($user == "admin" && $rule["role"] == "2") :?>
                 <!-- sekolah -->
                 <!-- tempat sekolah -->
                   <div class="input-group mb-3">

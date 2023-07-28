@@ -5,10 +5,6 @@ require "../template/getUser.php";
 if($_SESSION["sesi"] == false){
   header("location: ../../index.php");
 }
-elseif($_SESSION["user"] != "admin"){
-  header("location: ../dashboard/index_dashboard.php");
-  exit();
-}
 
 require "crud.php";
 ?>

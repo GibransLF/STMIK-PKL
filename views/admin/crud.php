@@ -1,6 +1,9 @@
 <?php
 // untuk mencari nama user
-
+$id = $_SESSION["login_id"];
+$queryRule = "SELECT role FROM admin WHERE id = '$id';";
+$rule = mysqli_query($conn, $queryRule);
+$rule = mysqli_fetch_assoc($rule);
 // untuk tabel 
 $query = "SELECT * FROM admin";
 $data = mysqli_query($conn, $query);

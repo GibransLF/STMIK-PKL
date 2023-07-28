@@ -88,6 +88,10 @@
           </div>
         </div>
         <div class="modal-footer justify-content-between">
+          <p><?= $row["created_at"] ?></p>
+          <p>di ubah pada : <?= $row["updated_at"] ?></p>
+        </div>
+        <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
         </div>
       </form>

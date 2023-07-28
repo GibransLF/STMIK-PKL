@@ -14,7 +14,7 @@ if($user == "admin"){
 
     $getRole = "SELECT role FROM admin WHERE id = '$id'";
     $resultRole = mysqli_query($conn, $getRole);
-    $role = mysqli_fetch_assoc($resultRole);
+    $rule = mysqli_fetch_assoc($resultRole);
 }
 elseif($user == "pembimbing"){
     //untuk tabel
@@ -25,6 +25,8 @@ elseif($user == "pembimbing"){
     LEFT JOIN pembimbing ON siswa.pembimbing_id = pembimbing.id
     WHERE pembimbing_id = $idPembimbing;";
     $data = mysqli_query($conn, $query);
+
+    $rule["role"] = "2";
 }
 // insert data
 if(isset($_POST["tambah"])){

@@ -25,9 +25,13 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Daftar Akun Admin STMIK</h3>
+              <?php if($rule["role"] == "2") :?>
               <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">Tambah</button>
+              <?php 
+              endif;
+              include "addModal.php"; 
+              ?>
             </div>
-            <?php include "addModal.php"; ?>
             <!-- /.card-header -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">

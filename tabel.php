@@ -127,6 +127,7 @@ if(!$tableExists){
     pembimbing_id INT(11),
     siswa_id INT(11),
     nama VARCHAR(255),
+    status VARCHAR(1),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -157,6 +158,7 @@ if(!$tableExists){
     tgl_mulai DATE,
     tgl_akhir DATE,
     grouppkl_id INT(11),
+    status VARCHAR(1),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -186,6 +188,7 @@ if(!$tableExists){
     kegiatan VARCHAR(255),
     siswa_id INT(11),
     grouppkl_id INT(11),
+    jadwal_id INT(11),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 

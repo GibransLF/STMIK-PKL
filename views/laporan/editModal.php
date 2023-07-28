@@ -10,25 +10,15 @@
       <form action="" method="POST">
         <div class="modal-body">
           <input type="hidden" name="id" value="<?= $row["id"] ?>">
-          <!-- Nama -->
-          <div class="form-group row">
-            <label for="nama" class="col-sm-2 col-form-label">Nama:</label>
-            <div class="col-sm-10">
-              <div class="input-group mb-3">
-                <input name="nama" id="nama" type="text" class="form-control" value="<?= $row["nama"] ?>" placeholder="<?= $row["nama"] ?>" required/>
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-user"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <!-- tgl -->
+          <div class="input-group mb-3">
+            <input name="tgl" type="date" class="form-control" placeholder="<?= $row["tgl"] ?>" value="<?= $row["tgl"] ?>" autocomplete="off" required/>
           </div>
-          <!-- Alamat -->
+          <!-- Kegiatan -->
           <div class="form-group row">
-            <label for="alamat" class="col-sm-2 col-form-label">Alamat:</label>
-            <div class="col-sm-10">
-              <textarea name="alamat" id="alamat" class="form-control" rows="3" required><?= $row["alamat"] ?> </textarea>
+          <label for="Kegiatan" class="col-sm-3 col-form-label">Kegiatan:</label>
+            <div class="col-sm-9">
+              <textarea name="kegiatan" class="form-control" id="kegiatan" rows="5"><?= $row["kegiatan"] ?></textarea>
             </div>
           </div>
         </div>

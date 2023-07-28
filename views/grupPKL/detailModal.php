@@ -9,6 +9,20 @@
       </div>
       <form action="" method="POST">
         <div class="modal-body">
+          <!-- nama group -->
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nama Grup:</label>
+            <div class="col-sm-10">
+              <div class="input-group mb-3">
+              <input name="namaGrup" type="text" class="form-control" placeholder="<?= $row["nama"] ?>" value="<?= $row["nama"] ?>" autocomplete="off" disabled/>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-users-cog"></span>
+              </div>
+            </div>
+              </div>
+            </div>
+          </div>
           <!-- pilih siswa -->
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">NI, Nama Siswa:</label>

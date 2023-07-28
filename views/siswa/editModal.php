@@ -38,7 +38,7 @@
               </div>
             </div>
           </div>
-          <?php if($user == "admin" && $role["role"] == "2") :?>
+          <?php if($user == "admin" && $rule["role"] == "2") :?>
           <!-- asal sekolah -->
           <div class="form-group row">
             <label for="sekolah" class="col-sm-2 col-form-label">Asal Sekolah:</label>

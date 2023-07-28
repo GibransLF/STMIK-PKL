@@ -32,6 +32,7 @@
               </p>
             </a>
           </li>
+          <?php if ($user != "siswa") : ?>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -41,35 +42,44 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="../admin/index_admin.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Admin</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../pembimbing/index_pembimbing.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+              <?php if ($user == "admin") : ?>
+                <li class="nav-item">
+                  <a href="../admin/index_admin.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Admin</p>
+                  </a>
+                </li>
+              <?php endif ?>
+              
+              <?php if ($user == "admin") : ?>
+                <li class="nav-item">
+                  <a href="../pembimbing/index_pembimbing.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
                   <p>Pembimbing Sekolah</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="../siswa/index_siswa.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Siswa</p>
-                </a>
-              </li>
+              <?php endif ?>
+              
+              <?php if ($user == "admin" || $user == "pembimbing") : ?>
+                <li class="nav-item">
+                  <a href="../siswa/index_siswa.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Siswa</p>
+                  </a>
+                </li>
+              <?php endif ?>  
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="../grupPKL/index_grupPKL.php" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Grup PKL
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
+          <?php endif ?>
+            <li class="nav-item">
+              <a href="../grupPKL/index_grupPKL.php" class="nav-link">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Grup PKL
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
             <a href="../jadwal/index_jadwal.php" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>

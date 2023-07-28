@@ -13,6 +13,7 @@ $queryGrup = "SELECT nama, id FROM grouppkl
                     FROM jadwal
                     LEFT JOIN grouppkl ON jadwal.grouppkl_id = grouppkl.id
                 )
+                AND status = '1'
                 GROUP BY nama;";
 $grup = mysqli_query($conn, $queryGrup);
 
@@ -53,6 +54,7 @@ function tambahJadwal($data){
     $grouppkl_id    = $_POST["grouppkl_id"];
     $tglMulai       = $_POST["tglMulai"];
     $tglAkhir       = $_POST["tglAkhir"];
+    $status         = "1";
 
     if (empty($grouppkl_id) || empty($tglMulai) || empty($tglAkhir)) {
         // Jika ada input yang kosong, tampilkan pesan error
@@ -101,10 +103,11 @@ function deleteJadwal($data){
 
     try {
         mysqli_query($conn, $query);
-        $_SESSION["success"] = "Data berhasil dihapus!";
     } catch (mysqli_sql_exception $e) {
-        $_SESSION["error"] = "Pembimbing sekolah berada di sekolah ini!";
+        $query = "UPDATE jadwal SET status = 0 WHERE id='$id'";
+        mysqli_query($conn, $query);
     }
+    $_SESSION["success"] = "Data berhasil dihapus!";
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();

@@ -25,9 +25,13 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Daftar Akun Siswa</h3>
+                <?php if($rule["role"] != "1"): ?>
                 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">Tambah</button>
+                <?php 
+                endif;
+                include "addModal.php"; 
+                ?>
               </div>
-              <?php include "addModal.php"; ?>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -76,7 +80,8 @@
                           <i class="fas fa-file"></i>
                         </button>
                         <?php include "detailModal.php" ?>
-
+                        
+                        <?php if($rule["role"] != "1"): ?>
                         <!-- Tombol Edit -->
                         <button class="btn btn-warning mx-2" data-toggle="modal" data-target="#editModal<?= $row["id"] ?>">
                           <i class="fas fa-edit"></i>
@@ -86,6 +91,7 @@
                         <!-- Tombol Delete -->
                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?= $row["id"]?>"><i class="fas fa-trash"></i></button>
                         <?php include "deleteModal.php" ?>
+                        <?php endif; ?>
                       </td>
                     </tr>
                   <?php endforeach ?>

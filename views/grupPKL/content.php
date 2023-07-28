@@ -24,10 +24,14 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Daftar Grup PKL untuk pembagian kelompok dan tempat</h3>
+                <h3 class="card-title">Daftar Grup PKL untuk pembagian kelompok</h3>
+                <?php if($user == "admin") :?>
                 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">Tambah</button>
+                <?php
+                endif;
+                include "addModal.php";
+                ?>
               </div>
-              <?php include "addModal.php"; ?>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -73,17 +77,20 @@
                         </button>
                         <?php include "detailModal.php" ?>
 
-                        <!-- Tombol Edit -->
-                        <button class="btn btn-warning mx-2" data-toggle="modal" data-target="#editModal<?= $row["id"] ?>">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <?php include "editModal.php" ?>
+                        <?php if($user == "admin"): ?>
+                          <!-- Tombol Edit -->
+                          <button class="btn btn-warning mx-2" data-toggle="modal" data-target="#editModal<?= $row["id"] ?>">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <?php include "editModal.php" ?>
 
-                        <?php if ($_SESSION["user"] == "admin"): ?>
-                        <!-- Tombol Delete -->
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?= $row["id"]?>"><i class="fas fa-trash"></i></button>
-                        <?php include "deleteModal.php" ?>
+                          <?php if ($_SESSION["user"] == "admin"): ?>
+                          <!-- Tombol Delete -->
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?= $row["id"]?>"><i class="fas fa-trash"></i></button>
+                          <?php include "deleteModal.php" ?>
+                          <?php endif ?>
                         <?php endif ?>
+                        
                       </td>
                     </tr>
                   <?php endforeach ?>

@@ -9,32 +9,16 @@
             </div>
             <form action="" method="POST">
               <div class="modal-body">
-              <input type="hidden" name="siswa_id" value="<?= $id ?>">
+                <input type="hidden" name="siswa_id" value="<?= $id ?>">
                 <!-- tgl -->
                 <div class="input-group mb-3">
                   <input name="tgl" type="date" class="form-control" placeholder="tanggal mulai" autocomplete="off" required/>
                 </div>
-                <!-- kegiatan -->
-                <div class="input-group mb-3">
-                  <input name="kegiatan" type="text" class="form-control" placeholder="Kegiatan" autocomplete="off" required/>
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <span class="fas fa-flag"></span>
-                    </div>
-                  </div>
-                </div>
-                <!-- Tanggal -->
-                <div class="input-group mb-3">
-                <label for="tglMulai" class="col-sm-4 col-form-label">Pilih Jadwal:</label>
-                  <div class="col-sm-8">
-                    <select name="jadwal_id" id="jadwal_id" class="form-control" required>
-                      <?php 
-                      //pilih jadwal tglEdit 
-                      foreach ($resultTgl as $tgl) :
-                        ?>
-                        <option value="<?= $tgl["id"] ?>"> <?= $tgl["tgl_mulai"] . " ~ " . $tgl["tgl_akhir"] ?> </option>
-                      <?php endforeach ?>
-                    </select>
+                <!-- Kegiatan -->
+                <div class="form-group row">
+                <label for="Kegiatan" class="col-sm-3 col-form-label">Kegiatan:</label>
+                  <div class="col-sm-9">
+                    <textarea name="kegiatan" class="form-control" id="kegiatan" rows="5"></textarea>
                   </div>
                 </div>
               </div>

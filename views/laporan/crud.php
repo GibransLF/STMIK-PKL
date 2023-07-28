@@ -12,12 +12,8 @@ if($user != "siswa"){
 }
 else{
     //untuk tabel
-    $query = "SELECT * FROM laporan where id = '$id'";
+    $query = "SELECT * FROM laporan WHERE siswa_id = '$id'";
     $data = mysqli_query($conn, $query);
-
-    // pilih tanggal untuk tambah
-    $queryTgl = "SELECT * FROM jadwal WHERE siswa_id = '$id'";
-    $resultTgl      = mysqli_query($conn, $queryTgl);
 }
 
 
@@ -57,21 +53,42 @@ function tambahLaporan($data){
 
     $tgl        = $data["tgl"];
     $kegiatan   = $data["kegiatan"];
+
     $siswa_id   = $data["siswa_id"];
-    $jadwal_id   = $data["jadwal_id"];
+
+    $queryGetGroup  = "SELECT id FROM grouppkl WHERE siswa_id = '$siswa_id';";
+    $resultGetGroup = mysqli_query($conn, $queryGetGroup);
+    if(mysqli_num_rows($resultGetGroup) > 0){
+        $rowGetGroup    = mysqli_fetch_assoc($resultGetGroup);
+        $grouppkl_id    = $rowGetGroup["id"];
+
+        //isi jadwal
+        $queryGetJadwal = "SELECT id FROM jadwal WHERE grouppkl_id = '$grouppkl_id';";
+        $resultGetJadwal= mysqli_query($conn, $queryGetJadwal);
+        if(mysqli_num_rows($resultGetJadwal) > 0){
+            $rowGetJadwal    = mysqli_fetch_assoc($resultGetJadwal);
+
+            $jadwal_id      = $rowGetJadwal["id"];
+        }
+        else{
+            $_SESSION["error"] = "anda belum memiliki jadwal PKL";
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
+        }
+    }
+    else{
+        $_SESSION["error"] = "anda belum terdaftar di grup PKL";
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 
     
-    if (empty($tgl) || empty($kegiatan) || empty($jadwal_id)) {
+    if (empty($tgl) || empty($kegiatan)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
     else {
-        $queryGroupId = "SELECT id FROM grouppkl WHERE jadwal_id = '$jadwal_id';";
-        $getGroupId = mysqli_query($conn, $queryGroupId);
-        $dataGroupId = mysqli_fetch_assoc($getGroupId);
-        $grouppkl_id =  $dataGroupId["id"];
-        
-        $query = "INSERT INTO laporan (tgl, kegiatan, siswa_id, grouppkl_id) VALUES ('$tgl', '$kegiatan', '$siswa_id', '$grouppkl_id');";
+        $query = "INSERT INTO laporan (tgl, kegiatan, siswa_id, grouppkl_id, jadwal_id) VALUES ('$tgl', '$kegiatan', '$siswa_id', '$grouppkl_id' , '$jadwal_id');";
         return mysqli_query($conn, $query);
     }
 }
@@ -80,15 +97,15 @@ function editLaporan($data){
     global $conn;
 
     $id         = $data["id"];
-    $nama       = $data["nama"];
-    $alamat     = $data["alamat"];
+    $tgl        = $data["tgl"];
+    $kegiatan   = $data["kegiatan"];
 
-    if (empty($nama) || empty($alamat)) {
+    if (empty($tgl) || empty($kegiatan)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
     else {
-        $query = "UPDATE sekolah SET nama = '$nama', alamat = '$alamat' WHERE id = '$id'";
+        $query = "UPDATE laporan SET tgl = '$tgl', kegiatan = '$kegiatan' WHERE id = '$id'";
         return mysqli_query($conn, $query);
     }
 }
@@ -98,14 +115,7 @@ function deleteLaporan($data){
 
     $id = $data["id"];
 
-    $query = "DELETE FROM sekolah WHERE id='$id'";
-
-    try {
-        mysqli_query($conn, $query);
-        $_SESSION["success"] = "Data berhasil dihapus!";
-    } catch (mysqli_sql_exception $e) {
-        $_SESSION["error"] = "Pembimbing sekolah berada di sekolah ini!";
-    }
+    $query = "DELETE FROM laporan WHERE id='$id'";
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();

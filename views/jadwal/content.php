@@ -25,9 +25,13 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Daftar Jadwal Grup</h3>
+                <?php if( $user == "admin" ) : ?>
                 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">Tambah</button>
+                <?php
+                endif;
+                include "addModal.php"; 
+                ?>
               </div>
-              <?php include "addModal.php"; ?>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -37,7 +41,9 @@
                     <th>Nama Grup</th>
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Akhir</th>
+                    <?php if( $user == "admin") : ?>
                     <th>Action</th>
+                    <?php endif; ?>
                   </tr>
                   </thead>
                   <tbody>
@@ -50,8 +56,9 @@
                       <td><?= $row["nama"] ?></td>
                       <td><?= $row["tgl_mulai"] ?></td>
                       <td><?= $row["tgl_akhir"] ?></td>
+                      
+                      <?php if ($_SESSION["user"] == "admin"): ?>
                       <td>
-                        <?php if ($_SESSION["user"] == "admin"): ?>
                         <!-- Tombol Edit -->
                         <button class="btn btn-warning mx-2" data-toggle="modal" data-target="#editModal<?= $row["id"] ?>">
                           <i class="fas fa-edit"></i>
@@ -61,8 +68,8 @@
                         <!-- Tombol Delete -->
                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?= $row["id"]?>"><i class="fas fa-trash"></i></button>
                         <?php include "deleteModal.php" ?>
-                        <?php endif ?>
                       </td>
+                      <?php endif ?>
                     </tr>
                   <?php endforeach ?>
                   </tbody>
@@ -72,7 +79,9 @@
                       <th>Nama Grup</th>
                       <th>Tanggal Mulai</th>
                       <th>Tanggal Akhir</th>
+                      <?php if( $user == "admin") : ?>
                       <th>Action</th>
+                      <?php endif; ?>
                     </tr>
                   </tfoot>
                 </table>
