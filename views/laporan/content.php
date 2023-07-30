@@ -69,6 +69,7 @@
                       <td><?= $row["tgl"] ?></td>
                       <td><?= $row["kegiatan"] ?></td>
                       <td>
+                        <?php if($statusUser =="proses"): ?>
                         <!-- Tombol Edit -->
                         <button class="btn btn-warning mx-2" data-toggle="modal" data-target="#editModal<?= $row["id"] ?>">
                           <i class="fas fa-edit"></i>
@@ -77,7 +78,11 @@
 
                         <!-- Tombol Delete -->
                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?= $row["id"]?>"><i class="fas fa-trash"></i></button>
-                        <?php include "deleteModal.php" ?>
+                        <?php 
+                        include "deleteModal.php" ;
+                        endif;
+                        ?>
+
                       </td>
                     </tr>
                   <?php endforeach ?>

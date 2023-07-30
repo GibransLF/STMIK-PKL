@@ -79,6 +79,7 @@ if(!$tableExists){
 }
 //end pembimbing
 
+
 //membuat tabel siswa
 
 //cek tabel siswa
@@ -104,13 +105,43 @@ if(!$tableExists){
         FOREIGN KEY (pembimbing_id) REFERENCES pembimbing(id)
     )";
 
-    if (mysqli_query($conn, $sql)) {
+if (mysqli_query($conn, $sql)) {
     echo "Table siswa berhasil di buat <br>";
-    } else {
+} else {
     echo "Error membuat tabel siswa <br>" . mysqli_error($conn);
-    }
+}
 }
 //end siswa
+
+//membuat tabel group
+
+//cek tabel group
+$query = "SHOW TABLES LIKE 'grup'";
+$result = mysqli_query($conn, $query);
+$tableExists = mysqli_num_rows($result) > 0;
+
+//membuat tabel group
+if(!$tableExists){
+    $sql = "CREATE TABLE grup (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(255),
+    admin_id INT(11),
+    pembimbing_id INT(11),
+    status VARCHAR(1),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (admin_id) REFERENCES admin(id),
+    FOREIGN KEY (pembimbing_id) REFERENCES pembimbing(id)
+    )";
+
+if (mysqli_query($conn, $sql)) {
+    echo "Table grup berhasil di buat <br>";
+} else {
+    echo "Error membuat tabel grup <br>" . mysqli_error($conn);
+}
+}
+//end group
 
 //membuat tabel grouppkl
 
@@ -123,17 +154,14 @@ $tableExists = mysqli_num_rows($result) > 0;
 if(!$tableExists){
     $sql = "CREATE TABLE grouppkl (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    admin_id INT(11),
-    pembimbing_id INT(11),
     siswa_id INT(11),
-    nama VARCHAR(255),
+    grup_id INT(11),
     status VARCHAR(1),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (admin_id) REFERENCES admin(id),
-    FOREIGN KEY (pembimbing_id) REFERENCES pembimbing(id),
-    FOREIGN KEY (siswa_id) REFERENCES siswa(id)
+    FOREIGN KEY (siswa_id) REFERENCES siswa(id),
+    FOREIGN KEY (grup_id) REFERENCES grup(id)
     )";
 
 if (mysqli_query($conn, $sql)) {
@@ -157,12 +185,12 @@ if(!$tableExists){
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     tgl_mulai DATE,
     tgl_akhir DATE,
-    grouppkl_id INT(11),
+    grup_id INT(11),
     status VARCHAR(1),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (grouppkl_id) REFERENCES grouppkl(id)
+    FOREIGN KEY (grup_id) REFERENCES grup(id)
     )";
 
 if (mysqli_query($conn, $sql)) {
@@ -188,7 +216,6 @@ if(!$tableExists){
     kegiatan VARCHAR(255),
     siswa_id INT(11),
     grouppkl_id INT(11),
-    jadwal_id INT(11),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 

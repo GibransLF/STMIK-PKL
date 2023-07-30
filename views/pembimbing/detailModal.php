@@ -1,5 +1,5 @@
 <div class="modal fade" id="detailModal<?= $row["id"] ?>">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Tambah Data</h4>
@@ -11,8 +11,8 @@
         <div class="modal-body">
           <!-- Nomor Induk -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Nomor Induk:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 col-form-label">Nomor Induk:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="ni" type="number" class="form-control" value="<?= $row["ni"] ?>" disabled/>
                 <div class="input-group-append">
@@ -25,8 +25,8 @@
           </div>
           <!-- Nama -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Nama:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 col-form-label">Nama:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="nama" type="text" class="form-control" value="<?= $row["nama"] ?>" disabled/>
                 <div class="input-group-append">
@@ -39,8 +39,8 @@
           </div>
           <!-- Asal Sekolah -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Tempat Sekolah:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 col-form-label">Tempat Sekolah:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="sekolah" type="text" class="form-control" value="<?= $row["sekolah"] ?>" disabled/>
                 <div class="input-group-append">
@@ -53,15 +53,15 @@
           </div>
           <!-- Alamat -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Alamat:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 col-form-label">Alamat:</label>
+            <div class="col-sm-9">
               <textarea name="alamat" class="form-control" rows="3" disabled><?= $row["alamat"] ?></textarea>
             </div>
           </div>
           <!-- Kontak -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Kontak:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 col-form-label">Kontak:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="kontak" type="number" class="form-control" value="<?= $row["kontak"] ?>" disabled/>
                 <div class="input-group-append">
@@ -74,8 +74,8 @@
           </div>
           <!-- Username -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Username:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 col-form-label">Username:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="username" type="text" class="form-control" value="<?= $row["username"] ?>" disabled/>
                 <div class="input-group-append">

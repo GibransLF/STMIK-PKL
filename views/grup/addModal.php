@@ -9,12 +9,32 @@
             </div>
             <form action="" method="POST">
               <div class="modal-body">
-                <!-- pilih siswa -->
+                <!-- nama group -->
                 <div class="input-group mb-3">
-                  <select name="siswa_id" id="siswa_id" class="form-control" required>
-                    <option> = Pilih Siswa = </option>
+                  <input name="namaGrup" type="text" class="form-control" placeholder="nama Grup" autocomplete="off" required/>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-user-tag"></span>
+                    </div>
+                  </div>
+                </div>
+                <!-- pilih admin -->
+                <div class="input-group mb-3">
+                  <select name="admin_id" class="form-control" required>
+                    <option value=""> = Pilih Admin = </option>
                     <?php 
-                    foreach ($siswa as $row) :
+                    foreach ($admin as $row) :
+                      ?>
+                      <option value="<?= $row["id"] ?>"> <?= $row["ni"] . " - " . $row["nama"] ?> </option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+                <!-- pilih pembimbing -->
+                <div class="input-group mb-3">
+                  <select name="pembimbing_id" class="form-control" required>
+                    <option value=""> = Pilih Pembimbing = </option>
+                    <?php 
+                    foreach ($pembimbing as $row) :
                       ?>
                       <option value="<?= $row["id"] ?>"> <?= $row["ni"] . " - " . $row["nama"] . " - " . $row["sekolah"] ?> </option>
                     <?php endforeach ?>

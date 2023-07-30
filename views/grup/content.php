@@ -5,13 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Daftar Grup PKL <b><?= $grupShow["nama"] ?></b></h1>
+            <h1>Daftar Grup</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../dashboard/index_dashboard.php">Dashboard</a></li>
-              <li class="breadcrumb-item"><a href="../grup/index_grup.php">grup</a></li>
-              <li class="breadcrumb-item active"><?= $grupShow["nama"] ?></li>
+              <li class="breadcrumb-item active">Grup</li>
             </ol>
           </div>
         </div>
@@ -25,11 +24,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">
-                  Pembimbing STMIK: <b><?= $grupShow["nama_admin"] ?></b>
-                  <br>
-                  Pembimbing Sekolah: <b><?= $grupShow["nama_pembimbing"] ?></b>
-                </h3>
+                <h3 class="card-title">Daftar Grup PKL untuk pembagian kelompok</h3>
                 <?php if($user == "admin") :?>
                 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">Tambah</button>
                 <?php
@@ -43,10 +38,10 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Siswa</th>
-                    <?php if($user == "admin"): ?>
+                    <th>Nama Grup</th>
+                    <th>Pembimbing STMIK</th>
+                    <th>pembimbing Sekolah</th>
                     <th>Action</th>
-                    <?php endif ?>
                   </tr>
                   </thead>
                   <tbody>
@@ -56,24 +51,40 @@
                   ?>
                     <tr>
                       <td><?= $i++ ?></td>
-                      <td><?= $row["nama_siswa"] ?></td>
-                      <?php if($user == "admin"): ?>
-                        <td>
+                      <td><?= $row["nama"] ?> </td>
+                      <td><?= $row["nama_admin"] ?> </td>
+                      <td><?= $row["nama_pembimbing"] ?> </td>
+                      <td>
+                        <!-- Tombol detail -->
+                        <a href="../grupPKL/index_grupPKL.php?id=<?= $row["id"] ?>" class="btn btn-primary">
+                          <i class="fas fa-user-graduate"></i>
+                        </a>
+
+                        <?php if($user == "admin"): ?>
+                          <!-- Tombol Edit -->
+                          <button class="btn btn-warning mx-2" data-toggle="modal" data-target="#editModal<?= $row["id"] ?>">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <?php include "editModal.php" ?>
+
+                          <?php if ($_SESSION["user"] == "admin"): ?>
                           <!-- Tombol Delete -->
                           <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?= $row["id"]?>"><i class="fas fa-trash"></i></button>
                           <?php include "deleteModal.php" ?>
-                        </td>
-                      <?php endif ?>
+                          <?php endif ?>
+                        <?php endif ?>
+                        
+                      </td>
                     </tr>
                   <?php endforeach ?>
                   </tbody>
                   <tfoot>
                     <tr>
                     <th>No</th>
-                    <th>Nama Siswa</th>
-                    <?php if($user == "admin"): ?>
+                    <th>Nama Grup</th>
+                    <th>Pembimbing STMIK</th>
+                    <th>pembimbing Sekolah</th>
                     <th>Action</th>
-                    <?php endif ?>
                     </tr>
                   </tfoot>
                 </table>

@@ -25,11 +25,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Daftar Akun Siswa</h3>
-                <?php if($rule["role"] != "1"): ?>
+                <?php if($rule["role"] != "1" && $statusUser == "proses"): ?>
                 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">Tambah</button>
                 <?php 
-                endif;
                 include "addModal.php"; 
+                endif;
                 ?>
               </div>
               <!-- /.card-header -->
@@ -73,7 +73,11 @@
                           <u><i><?= $row["status"] ?></i></u>
                         </a>
                       </td>
-                        <?php include "statusModal.php" ?>
+                        <?php 
+                        if($rule["role"] != "1" && $statusUser == "proses"){
+                        include "statusModal.php" ;
+                        }
+                        ?>
                         <td>
                         <!-- Tombol detail -->
                         <button class="btn btn-primary" data-toggle="modal" data-target="#detailModal<?= $row["id"] ?>">
@@ -81,7 +85,7 @@
                         </button>
                         <?php include "detailModal.php" ?>
                         
-                        <?php if($rule["role"] != "1"): ?>
+                        <?php if($rule["role"] != "1" && $statusUser == "proses"): ?>
                         <!-- Tombol Edit -->
                         <button class="btn btn-warning mx-2" data-toggle="modal" data-target="#editModal<?= $row["id"] ?>">
                           <i class="fas fa-edit"></i>

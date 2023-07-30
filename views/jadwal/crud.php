@@ -1,20 +1,15 @@
 <?php
-// untuk mencari nama user
-
 // untuk tabel 
-$query      = "SELECT jadwal.*, grouppkl.nama FROM jadwal
-                LEFT JOIN grouppkl ON jadwal.grouppkl_id = grouppkl.id;";
+$query= "SELECT jadwal.*, grup.nama FROM jadwal
+        LEFT JOIN grup ON jadwal.grup_id = grup.id
+        WHERE jadwal.status = '1';";
 $data = mysqli_query($conn, $query);
 
-//cari group 
-$queryGrup = "SELECT nama, id FROM grouppkl
-                WHERE nama NOT IN (
-                    SELECT grouppkl.nama
-                    FROM jadwal
-                    LEFT JOIN grouppkl ON jadwal.grouppkl_id = grouppkl.id
-                )
-                AND status = '1'
-                GROUP BY nama;";
+//tambah grup
+$queryGrup  = "SELECT id, nama
+            FROM grup
+            WHERE status = '1'
+            AND grup.id NOT IN (SELECT grup_id FROM jadwal);";
 $grup = mysqli_query($conn, $queryGrup);
 
 // insert data
@@ -51,12 +46,12 @@ if(isset($_POST["hapus"])){
 function tambahJadwal($data){
     global $conn;
 
-    $grouppkl_id    = $_POST["grouppkl_id"];
-    $tglMulai       = $_POST["tglMulai"];
-    $tglAkhir       = $_POST["tglAkhir"];
+    $grup_id        = $data["grup_id"];
+    $tglMulai       = $data["tglMulai"];
+    $tglAkhir       = $data["tglAkhir"];
     $status         = "1";
 
-    if (empty($grouppkl_id) || empty($tglMulai) || empty($tglAkhir)) {
+    if (empty($grup_id) || empty($tglMulai) || empty($tglAkhir)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -65,7 +60,7 @@ function tambahJadwal($data){
             $_SESSION["error"] = "Tanggal akhir harus lebih besar dari tanggal mulai.";
         }
         else{
-            $query = "INSERT INTO jadwal (grouppkl_id, tgl_mulai, tgl_akhir) VALUES ('$grouppkl_id', '$tglMulai', '$tglAkhir')";
+            $query = "INSERT INTO jadwal (grup_id, tgl_mulai, tgl_akhir, status) VALUES ('$grup_id', '$tglMulai', '$tglAkhir', '$status')";
             return mysqli_query($conn, $query);
         }
     }
@@ -74,12 +69,12 @@ function tambahJadwal($data){
 function editJadwal($data){
     global $conn;
 
-    $id         = $_POST["id"];
-    $siswa_id = $_POST["siswa_id"];
-    $tglMulai   = $_POST["tglMulai"];
-    $tglAkhir   = $_POST["tglAkhir"];
+    $id         = $data["id"];
 
-    if ( empty($siswa_id) || empty($tglMulai) || empty($tglAkhir)) {
+    $tglMulai   = $data["tglMulai"];
+    $tglAkhir   = $data["tglAkhir"];
+
+    if ( empty($tglMulai) || empty($tglAkhir)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -88,7 +83,7 @@ function editJadwal($data){
             $_SESSION["error"] = "Tanggal akhir harus lebih besar dari tanggal mulai.";
         }
         else{
-            $query = "UPDATE jadwal SET siswa_id = '$siswa_id', tgl_mulai = '$tglMulai', tgl_akhir = '$tglAkhir' WHERE id = '$id'";
+            $query = "UPDATE jadwal SET tgl_mulai = '$tglMulai', tgl_akhir = '$tglAkhir' WHERE id = '$id'";
             return mysqli_query($conn, $query);
         }
     }

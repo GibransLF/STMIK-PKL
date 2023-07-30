@@ -9,14 +9,14 @@
             </div>
             <form action="" method="POST">
               <div class="modal-body">
-                <!-- pilih siswa -->
+                <!-- pilih grup -->
                 <div class="input-group mb-3">
-                  <select name="grouppkl_id" class="form-control" required>
+                  <select name="grup_id" class="form-control" required>
                     <option value=""> = Pilih grup = </option>
                     <?php 
-                    foreach ($grup as $groups) :
+                    foreach ($grup as $grups) :
                       ?>
-                      <option value="<?= $groups["id"] ?>"> <?= $groups["nama"] ?> </option>
+                      <option value="<?= $grups["id"] ?>"> <?= $grups["nama"] ?> </option>
                     <?php endforeach ?>
                   </select>
                 </div>

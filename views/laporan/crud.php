@@ -61,20 +61,6 @@ function tambahLaporan($data){
     if(mysqli_num_rows($resultGetGroup) > 0){
         $rowGetGroup    = mysqli_fetch_assoc($resultGetGroup);
         $grouppkl_id    = $rowGetGroup["id"];
-
-        //isi jadwal
-        $queryGetJadwal = "SELECT id FROM jadwal WHERE grouppkl_id = '$grouppkl_id';";
-        $resultGetJadwal= mysqli_query($conn, $queryGetJadwal);
-        if(mysqli_num_rows($resultGetJadwal) > 0){
-            $rowGetJadwal    = mysqli_fetch_assoc($resultGetJadwal);
-
-            $jadwal_id      = $rowGetJadwal["id"];
-        }
-        else{
-            $_SESSION["error"] = "anda belum memiliki jadwal PKL";
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit();
-        }
     }
     else{
         $_SESSION["error"] = "anda belum terdaftar di grup PKL";
@@ -88,7 +74,7 @@ function tambahLaporan($data){
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
     else {
-        $query = "INSERT INTO laporan (tgl, kegiatan, siswa_id, grouppkl_id, jadwal_id) VALUES ('$tgl', '$kegiatan', '$siswa_id', '$grouppkl_id' , '$jadwal_id');";
+        $query = "INSERT INTO laporan (tgl, kegiatan, siswa_id, grouppkl_id) VALUES ('$tgl', '$kegiatan', '$siswa_id', '$grouppkl_id');";
         return mysqli_query($conn, $query);
     }
 }

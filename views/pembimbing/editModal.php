@@ -1,5 +1,5 @@
 <div class="modal fade" id="editModal<?= $row["id"] ?>">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Edit Data</h4>
@@ -12,8 +12,8 @@
           <input type="hidden" name="id" value="<?= $row["id"] ?>">
           <!-- Nomor Induk -->
           <div class="form-group row">
-            <label for="ni" class="col-sm-2 col-form-label">Nomor Induk:</label>
-            <div class="col-sm-10">
+            <label for="ni" class="col-sm-3 col-form-label">Nomor Induk:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="ni" id="ni" type="number" class="form-control" value="<?= $row["ni"] ?>" placeholder="<?= $row["ni"] ?>" required/>
                 <div class="input-group-append">
@@ -26,8 +26,8 @@
           </div>
           <!-- Nama -->
           <div class="form-group row">
-            <label for="nama" class="col-sm-2 col-form-label">Nama:</label>
-            <div class="col-sm-10">
+            <label for="nama" class="col-sm-3 col-form-label">Nama:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="nama" id="nama" type="text" class="form-control" value="<?= $row["nama"] ?>" placeholder="<?= $row["nama"] ?>" required/>
                 <div class="input-group-append">
@@ -40,8 +40,8 @@
           </div>
           <!-- Asal Sekolah -->
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Tempat Sekolah:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 col-form-label">Tempat Sekolah:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="sekolah" type="text" class="form-control" value="<?= $row["sekolah"] ?>" placeholder="<?= $row["sekolah"] ?>" required/>
                 <div class="input-group-append">
@@ -54,15 +54,15 @@
           </div>
           <!-- Alamat -->
           <div class="form-group row">
-            <label for="alamat" class="col-sm-2 col-form-label">Alamat:</label>
-            <div class="col-sm-10">
+            <label for="alamat" class="col-sm-3 col-form-label">Alamat:</label>
+            <div class="col-sm-9">
               <textarea name="alamat" id="alamat" class="form-control" rows="3" required><?= $row["alamat"] ?></textarea>
             </div>
           </div>
           <!-- Kontak -->
           <div class="form-group row">
-            <label for="kontak" class="col-sm-2 col-form-label">Kontak:</label>
-            <div class="col-sm-10">
+            <label for="kontak" class="col-sm-3 col-form-label">Kontak:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="kontak" id="kontak" type="number" class="form-control" value="<?= $row["kontak"] ?>" placeholder="<?= $row["kontak"] ?>" required/>
                 <div class="input-group-append">
@@ -75,8 +75,8 @@
           </div>
           <!-- Username -->
           <div class="form-group row">
-            <label for="username" class="col-sm-2 col-form-label">Username:</label>
-            <div class="col-sm-10">
+            <label for="username" class="col-sm-3 col-form-label">Username:</label>
+            <div class="col-sm-9">
               <div class="input-group mb-3">
                 <input name="username" id="username" type="text" class="form-control" value="<?= $row["username"] ?>" placeholder="<?= $row["username"] ?>" required/>
                 <div class="input-group-append">

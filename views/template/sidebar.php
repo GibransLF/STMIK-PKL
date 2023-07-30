@@ -72,10 +72,10 @@
           </li>
           <?php endif ?>
             <li class="nav-item">
-              <a href="../grupPKL/index_grupPKL.php" class="nav-link">
+              <a href="../grup/index_grup.php" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Grup PKL
+                  Grup
                 </p>
               </a>
             </li>
