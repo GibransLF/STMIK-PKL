@@ -41,8 +41,8 @@
         <div class="col-md-4  animate__animated animate__fadeInRight">
           <div class="card">
             <div class="card-body">
-              <h3>Cara Mendaftar</h3>
-              <p>Pembimbing sekolah membuat perjanjian dengan STMIK, melakukan regisrasi, dan membawa berkas penting lainnya.</p>
+              <h3>Cara <a href="register.php"><u style="color:black"><i>Mendaftar</i></u></a></h3>
+              <p>Pembimbing sekolah menekan <a href="register.php"><u style="color:black"><i>Mendaftar</i></u></a> lalu mengisi semua formulir yang tersedia dan mengirimkan surat permohonan PKL berupa PDF.</p>
             </div>
           </div>
         </div>

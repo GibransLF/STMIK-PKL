@@ -2,7 +2,15 @@
   require "database.php";
   
   session_start();
+  if($_SESSION["login_id"] == ""){
+    header("location: index.php");
+  }
   
+  $idLog = $_SESSION["login_id"];
+
+  $queryPem = "SELECT nama, status FROM pembimbing WHERE id = '$idLog';";
+  $resultPem = mysqli_query($conn, $queryPem);
+  $rowPem = mysqli_fetch_assoc($resultPem);
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +18,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>STMIK PKL | status</title>
+    <title>STMIK PKL | Status</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"/>
@@ -35,50 +43,39 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in</p>
-
-          <form action="" method="post">
-            <div class="input-group mb-3">
-              <input name="username" type="text" class="form-control" placeholder="Username" />
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user"></span>
-                </div>
-              </div>
+          <h1 class="login-box-msg">Status anda 
+            <b class="
+              <?php 
+              if($rowPem["status"] == "tolak"){
+                echo "text-danger";
+              } 
+              elseif($rowPem["status"] == "mendaftar"){
+                echo "text-success";
+              }
+              ?>">
+              "<?= $rowPem["status"]; ?>"
+            </b>
+          </h1>
+          <div class="row">
+            <div class="text-center">
+              <p>
+                <?php 
+                  if($rowPem["status"] == "tolak"){
+                    echo "Maaf, formulir/berkas yang Anda kirimkan ditolak karena beberapa alasan tertentu.";
+                  } 
+                  elseif($rowPem["status"] == "mendaftar"){
+                    echo "akun anda masih berstatus mendaftar!, tunggu beberapa saat untuk menunggu admin cek formulir anda dan coba kembali di lain waktu.";
+                  }
+                  ?>
+              </p>
             </div>
-            <div class="input-group mb-3">
-              <input
-                name="pass"
-                type="password"
-                class="form-control"
-                placeholder="Password"
-              />
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
-                </div>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <span>Kembali ke <a href="logout.php">Home Page</a></span>
             </div>
-              <!-- /.col -->
-              <div class="row justify-content-center">
-                <div class="col-6">
-                  <button name="submit" type="submit" class="btn btn-primary btn-block">
-                    Sign In
-                  </button>
-                </div>
-              </div>
-              <!-- /.col -->
-              <!-- /.col -->
-              <br>
-              <div class="row">
-                <div class="col-8">
-                  <span>Kembali ke <a href="index.php">Home Page</a></span>
-                </div>
-              </div>
-              <!-- /.col -->
-            </div>
-          </form>
-        <!-- /.login-card-body -->
+          </div>
+          
       </div>
     </div>
     <!-- /.login-box -->

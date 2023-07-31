@@ -108,8 +108,9 @@ session_start();
 
           <form action="" method="post" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="upload">Dokumen surat tipe .pdf</label>
+            <label for="upload">Kirimkan Surat permohonan PKL</label>
             <input type="file" class="form-control-file" name="upload" id="upload">
+            <label for="upload">tipe .pdf max 1MB.</label>
           </div>
             <!-- end upload -->
 

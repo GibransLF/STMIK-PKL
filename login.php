@@ -54,9 +54,19 @@
       } 
       elseif (password_verify($pass, $hashPassPembimbing)) {
         $_SESSION["login_id"] = $rowPembimbing["id"];
-        header('location: views/dashboard/index_dashboard.php');
-        $_SESSION["sesi"] = true;
-        $_SESSION["user"] = "pembimbing";
+        
+        //cek jika status diTolak atau Mendaftar
+        $statusUser = $rowPembimbing["status"];
+        if($statusUser == "tolak" || $statusUser == "mendaftar"){
+          header('location: status.php');
+          $_SESSION["sesi"] = false;
+          $_SESSION["user"] = "pembimbing";
+        }
+        else{
+          header('location: views/dashboard/index_dashboard.php');
+          $_SESSION["sesi"] = true;
+          $_SESSION["user"] = "pembimbing";
+        }
       }
       elseif (password_verify($pass, $hashPassAdmin)) {
         $_SESSION["login_id"] = $rowAdmin["id"];
