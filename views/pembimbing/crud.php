@@ -60,7 +60,7 @@ if(isset($_POST["hapus"])){
         $_SESSION['success'] = "Data berhasil di Hapus!";
     }
     else{
-        $_SESSION['error'] = "Data gagal di Hapus!";
+        $_SESSION['error'] = "Data terpakai oleh data lain! tidak bisa di hapus!";
     }
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
@@ -242,7 +242,12 @@ function deletePembimbing($data){
 
     $query = "DELETE FROM pembimbing WHERE id='$id'";
 
-    return mysqli_query($conn, $query);
+    try {
+        return mysqli_query($conn, $query);
+    } catch (mysqli_sql_exception $e) {
+        $_SESSION["error"] = "Data terpakai oleh data lain! tidak bisa di hapus";
+    }
+
 }
 
 ?>

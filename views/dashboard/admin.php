@@ -34,26 +34,22 @@
                     <div class="row">
                         <!-- pembimbing Tolak -->
                         <div class="col-md-6">
-                            <h3><?= $pembimbingTolak ?> </h3>
-                            <p>Status diTolak</p>
+                            <p><b><?= $pembimbingTolak ?></b> Status diTolak</p>
                         </div>
                         <!-- pembimbing Mendaftar -->
                         <div class="col-md-6">
-                            <h3><?= $pembimbingMendaftar ?> </h3>
-                            <p>Status Mendaftar</p>
+                            <p><b><?= $pembimbingMendaftar ?></b> Status Mendaftar</p>
                         </div>
                     </div>
                     <!-- baris kedua -->
                     <div class="row">
                         <!-- pembimbing proses -->
                         <div class="col-md-6">
-                            <h3><?= $pembimbingProses ?> </h3>
-                            <p>Status Proses</p>
+                            <p><b><?= $pembimbingProses ?></b> Status Proses</p>
                         </div>
                         <!-- pembimbing selesai -->
                         <div class="col-md-6">
-                            <h3><?= $pembimbingSelesai ?> </h3>
-                            <p>Status Selesai</p>
+                            <p><b><?= $pembimbingSelesai ?></b> Status Selesai</p>
                         </div>
                     </div>
                 </div>
@@ -77,7 +73,7 @@
                     <div class="row">
                         <!-- pembimbing Tolak -->
                         <div class="col-md-6">
-                            <h3><?= $siswaProses ?> </h3>
+                            <h3><?= $siswaProses ?></h3>
                             <p>Status proses</p>
                         </div>
                         <!-- pembimbing Mendaftar -->
@@ -94,21 +90,16 @@
             </div>
         </div>
         <!-- end pembimbing -->
-    </div>
-    <!-- /.row -->
-    <div class="row">
-        <!-- siswa yang belum memasuki group -->
-        <!-- group -->
         <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-secondary">
                 <div class="inner">
-                <!-- info group -->
-                <h3><?= $jumlahGroup ?> </h3>
-                <p>Siswa belum mempunyai grup</p>
+                    <!-- info group -->
+                    <h3><?= $jumlahGroup ?> </h3>
+                    <p>Siswa belum mempunyai grup</p>
                 </div>
                 <div class="icon">
-                <i class="fas fa-users"></i>
+                    <i class="fas fa-users"></i>
                 </div>
                 <a href="../grup/index_grup.php" class="small-box-footer">Info selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -118,17 +109,16 @@
             <!-- small box -->
             <div class="small-box bg-secondary">
                 <div class="inner">
-                <!-- info jadwal -->
-                <h3><?= $jumlahJadwal ?> </h3>
-                <p>Grup yang belum memiliki jadwal</p>
+                    <!-- info jadwal -->
+                    <h3><?= $jumlahJadwal ?> </h3>
+                    <p>Grup yang belum memiliki jadwal</p>
                 </div>
                 <div class="icon">
-                <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-calendar-alt"></i>
                 </div>
                 <a href="../jadwal/index_jadwal.php" class="small-box-footer">Info selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
-    </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->

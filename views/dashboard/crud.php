@@ -1,5 +1,7 @@
 <?php
-    // admin
+// admin
+if($user == "admin"){
+
     $queryAdmin = "SELECT 
     (SELECT COUNT(role) FROM admin WHERE role = 1) AS jumlah_pembimbingSTMIK,
     (SELECT COUNT(role) FROM admin WHERE role = 2) AS jumlah_admin
@@ -86,10 +88,96 @@
                 )
                 AND status = '1';";
 
-$resultjadwal = mysqli_query($conn, $queryJadwal);
+    $resultjadwal = mysqli_query($conn, $queryJadwal);
 
-if ($rowJadwal = mysqli_fetch_assoc($resultjadwal)) {
-    $jumlahJadwal = $rowJadwal["jumlahJadwal"];
+    if ($rowJadwal = mysqli_fetch_assoc($resultjadwal)) {
+        $jumlahJadwal = $rowJadwal["jumlahJadwal"];
+    }
+}
+elseif($user == "pembimbing"){
+    $pembimbing_id = $_SESSION["login_id"];
+
+    // mencari daftar siswa 
+    $querySiswa = "SELECT count(id) AS jumlahSiswa FROM siswa WHERE pembimbing_id = '$pembimbing_id';";
+    $resultSiswa = mysqli_query($conn, $querySiswa);
+
+    if ($rowSiswa = mysqli_fetch_assoc($resultSiswa)) {
+        $jumlahSiswa = $rowSiswa["jumlahSiswa"];
+    }
+    
+    // mencari siswa yang belum mengisi laporan hari ini 
+    $now = date("Ymd");
+    
+    $queryLaporan = "SELECT count(laporan.tgl) AS unNowLaporan
+                    FROM laporan 
+                    LEFT JOIN siswa ON laporan.siswa_id = siswa.id
+                    WHERE siswa.pembimbing_id = '$pembimbing_id'
+                    AND laporan.tgl = '$now';";
+    $resultLaporan = mysqli_query($conn, $queryLaporan);
+
+    if ($rowLaporan = mysqli_fetch_assoc($resultLaporan)) {
+        $jumlahLaporan = $rowLaporan["unNowLaporan"];
+    }
+
+    //mencari jadwal grup
+    $queryJadwal = 
+        "SELECT jadwal.tgl_mulai AS tglM, 
+        jadwal.tgl_akhir AS tglA,
+        grup.nama AS namaGrup
+        FROM jadwal
+        JOIN grup ON jadwal.grup_id = grup.id
+        WHERE grup.pembimbing_id = '$pembimbing_id';"
+    ;
+    $resultjadwal = mysqli_query($conn, $queryJadwal);
+
+    if ($rowJadwal = mysqli_fetch_assoc($resultjadwal)) {
+        $tglM = $rowJadwal["tglM"];
+        $tglA = $rowJadwal["tglA"];
+        $namaGrup = $rowJadwal["namaGrup"];
+    }
+}
+elseif($user == "siswa"){
+    $siswa_id = $_SESSION["login_id"];
+
+    $now = date("Ymd");
+    
+    $queryLaporan = "SELECT count(tgl) AS unNowLaporan
+                    FROM laporan 
+                    WHERE siswa_id = '$siswa_id'
+                    AND tgl = '$now';";
+    $resultLaporan = mysqli_query($conn, $queryLaporan);
+
+    if ($rowLaporan = mysqli_fetch_assoc($resultLaporan)) {
+        $jumlahLaporan = $rowLaporan["unNowLaporan"];
+    }
+
+    //mencari grup
+    $grupId = 0;
+    $queryGrup = 
+        "SELECT grup.nama, grup.id FROM grouppkl
+        LEFT JOIN grup ON grouppkl.grup_id = grup.id
+        WHERE grouppkl.siswa_id = '$siswa_id';";
+    ;
+    $resultGrup = mysqli_query($conn, $queryGrup);
+
+    if ($rowGrup = mysqli_fetch_assoc($resultGrup)) {
+        $grupId = $rowGrup["id"];
+        $nama = $rowGrup["nama"];
+    }
+
+    //mencari jadwal grup
+    $queryJadwal = 
+        "SELECT tgl_mulai AS tglM, 
+        tgl_akhir AS tglA
+        FROM jadwal
+        WHERE grup_id = '$grupId';"
+    ;
+    $resultjadwal = mysqli_query($conn, $queryJadwal);
+
+    if ($rowJadwal = mysqli_fetch_assoc($resultjadwal)) {
+        $tglM = $rowJadwal["tglM"];
+        $tglA = $rowJadwal["tglA"];
+    }
 }
 
 ?>

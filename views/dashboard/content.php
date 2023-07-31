@@ -20,7 +20,10 @@
       include "admin.php";
     }
     elseif( $user == "pembimbing" ){
-
+      include "pembimbing.php";
+    }
+    elseif( $user == "siswa" ){
+      include "siswa.php";
     }
   ?>
 

@@ -8,6 +8,7 @@ if($user == "siswa"){
     $result = mysqli_query($conn, $query);
     $login = mysqli_fetch_assoc($result);
     $logUser = $login["nama"];
+    $statusUser = $login["status"];
 }
 elseif($user == "pembimbing"){
     $query = "SELECT * FROM pembimbing where id = '$id'";
