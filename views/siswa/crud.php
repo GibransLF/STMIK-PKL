@@ -103,16 +103,49 @@ function tambahSiswa($data){
         $pembimbing_id = $idPembimbing;
     }
 
+    if (isset($_FILES["upload"]) && $_FILES["upload"]["error"] === UPLOAD_ERR_OK) {
+        $fileType = strtolower(pathinfo($_FILES["upload"]["name"], PATHINFO_EXTENSION));
+        $fileSize = $_FILES["upload"]["size"];
+        
+        // Validasi tipe file (harus PDF)
+        if ($fileType !== "pdf") {
+          $_SESSION["error"] = "File yang diupload harus berupa PDF.";
+          header('Location: ' . $_SERVER['HTTP_REFERER']);
+          exit;
+        }
+    
+        // Validasi ukuran file (maksimum 1 MB)
+        $maxFileSize = 1 * 1024 * 1024; // 1 MB dalam bytes
+        if ($fileSize > $maxFileSize) {
+          $_SESSION["error"] = "Ukuran file terlalu besar. Maksimum 1 MB.";
+          header('Location: ' . $_SERVER['HTTP_REFERER']);
+          exit;
+        }
+    
+        // Mengganti nama file dengan timestamp + uniqid + .pdf
+        $newFileName = "S" . date("dmY") . uniqid() . ".pdf";
+        $targetDir = "../../upload/";
+        $targetFile = $targetDir . $newFileName;
+        
+    } 
+    else {
+        $_SESSION["error"] = "Harap pilih file PDF yang akan diupload.";
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
 
     $ni         = $data["ni"];
     $nama       = $data["nama"];
+    $jurusan    = $data["jurusan"];
+    $kelas      = $data["kelas"];
     $alamat     = $data["alamat"];
     $kontak     = $data["kontak"];
+    $upload     = $newFileName;
     $username   = $data["username"];
     $pass       = $data["pass"];
-    $status     = "proses";
+    $status     = "mendaftar";
 
-    if (empty($ni) || empty($nama) || empty($alamat) || empty($kontak) || empty($username) || empty($pass)) {
+    if (empty($ni) || empty($nama) || empty($jurusan) || empty($kelas) || empty($alamat) || empty($kontak) || empty($username) || empty($pass)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -125,8 +158,14 @@ function tambahSiswa($data){
         } elseif (mysqli_num_rows($resultUserP) > 0 || mysqli_num_rows($resultUserA) > 0 || mysqli_num_rows($resultUserS) > 0) {
             $_SESSION["error"] = "Username telah digunakan!";
         } else {
+            // Pindahkan file yang diupload ke folder uploads dengan nama yang baru
+            if (!move_uploaded_file($_FILES["upload"]["tmp_name"], $targetFile)) {
+                $_SESSION["error"] = "Terjadi kesalahan saat mengupload file.";
+                exit;
+            }
+
             $pass = password_hash($pass, PASSWORD_DEFAULT);
-            $query = "INSERT INTO siswa (ni, nama, pembimbing_id, alamat, kontak, username, password, status) VALUES ('$ni', '$nama', '$pembimbing_id', '$alamat', '$kontak', '$username', '$pass', '$status')";
+            $query = "INSERT INTO siswa (ni, nama, jurusan, kelas, pembimbing_id, alamat, kontak, upload, username, password, status) VALUES ('$ni', '$nama', '$jurusan', '$kelas', '$pembimbing_id', '$alamat', '$kontak', '$upload', '$username', '$pass', '$status')";
             return mysqli_query($conn, $query);
         }
     }
@@ -138,12 +177,14 @@ function editSiswa($data){
     $id             = $data["id"];
     $ni             = $data["ni"];
     $nama           = $data["nama"];
+    $jurusan    = $data["jurusan"];
+    $kelas      = $data["kelas"];
     $pembimbingId   = $data["pembimbing_id"];
     $alamat         = $data["alamat"];
     $kontak         = $data["kontak"];
     $username       = $data["username"];
 
-    if (empty($ni) || empty($nama) || empty($alamat) || empty($kontak) || empty($username) || empty($pembimbingId)) {
+    if (empty($ni) || empty($nama) || empty($jurusan) || empty($kelas) || empty($alamat) || empty($kontak) || empty($username) || empty($pembimbingId)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -158,7 +199,7 @@ function editSiswa($data){
             $_SESSION["error"] = "Username telah digunakan!";
         } 
         else {
-            $query = "UPDATE siswa SET ni = '$ni', nama = '$nama', pembimbing_id = '$pembimbingId', alamat = '$alamat', kontak = '$kontak', username = '$username' WHERE id = '$id'";
+            $query = "UPDATE siswa SET ni = '$ni', nama = '$nama', jurusan ='$jurusan', kelas = '$kelas', pembimbing_id = '$pembimbingId', alamat = '$alamat', kontak = '$kontak', username = '$username' WHERE id = '$id'";
 
             $_SESSION["success"] = "Ubah Data berhasil!";
             return mysqli_query($conn, $query);
@@ -172,7 +213,13 @@ function pStatusSiswa($data){
     $id     = $data["id"];
     $status = $data["status"];
 
-    if($status == "selesai"){
+    if($status == "mendaftar"){
+        $status = "tolak";
+    }
+    elseif($status == "proses"){
+        $status = "mendaftar";
+    }
+    elseif($status == "selesai"){
         $status = "proses"; 
     }
 
@@ -187,7 +234,13 @@ function nStatusSiswa($data){
     $id     = $data["id"];
     $status = $data["status"];
 
-    if($status == "proses"){
+    if($status == "tolak"){
+        $status = "mendaftar";
+    }
+    elseif($status == "mendaftar"){
+        $status = "proses";
+    }
+    elseif($status == "proses"){
         $status = "selesai"; 
     }
 

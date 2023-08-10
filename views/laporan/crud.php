@@ -2,12 +2,22 @@
 // cari user
 $id = $_SESSION["login_id"];
 // untuk tabel 
-if($user != "siswa"){
+if($user == "admin"){
     $query = "SELECT laporan.*,
             siswa.id AS id_siswa, 
             siswa.nama AS nama_siswa
             FROM laporan
             LEFT JOIN siswa ON laporan.siswa_id = siswa.id";
+    $data = mysqli_query($conn, $query);
+}
+elseif($user == "pembimbing"){
+    $query = "SELECT laporan.*,
+            siswa.id AS id_siswa, 
+            siswa.nama AS nama_siswa,
+            siswa.pembimbing_id
+            FROM laporan
+            LEFT JOIN siswa ON laporan.siswa_id = siswa.id
+            WHERE pembimbing_id = $id";
     $data = mysqli_query($conn, $query);
 }
 else{

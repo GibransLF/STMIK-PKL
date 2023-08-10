@@ -7,10 +7,17 @@
   }
   
   $idLog = $_SESSION["login_id"];
-
+  $user = $_SESSION["user"];
+  if($user == 'pembimbing'){
   $queryPem = "SELECT nama, status FROM pembimbing WHERE id = '$idLog';";
   $resultPem = mysqli_query($conn, $queryPem);
   $rowPem = mysqli_fetch_assoc($resultPem);
+  }
+  else{
+    $queryPem = "SELECT nama, status FROM siswa WHERE id = '$idLog';";
+    $resultPem = mysqli_query($conn, $queryPem);
+    $rowPem = mysqli_fetch_assoc($resultPem);
+  }
 ?>
 
 <!DOCTYPE html>

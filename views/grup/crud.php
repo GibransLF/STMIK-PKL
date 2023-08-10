@@ -96,12 +96,12 @@ function deletegrup($data){
 
     $id = $data["id"];
 
-    $query = "DELETE FROM grup WHERE id='$id'";
-
+    
     try {
+        $query = "DELETE FROM grup WHERE id='$id'";
         mysqli_query($conn, $query);
     } catch (mysqli_sql_exception $e) {
-        $query = "UPDATE grouppkl SET status = 0 WHERE id='$id'";
+        $query = "UPDATE grup SET status = 0 WHERE id='$id'";
         mysqli_query($conn, $query);
     }
     $_SESSION["success"] = "Data berhasil dihapus!";

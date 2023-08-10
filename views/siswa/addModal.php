@@ -7,7 +7,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
               <div class="modal-body">
                 <!-- nomor induk -->
                 <div class="input-group mb-3">
@@ -26,6 +26,24 @@
                       <span class="fas fa-user"></span>
                     </div>
                   </div>
+                </div>
+                <!-- jurusan -->
+                <div class="input-group mb-3">
+                  <input name="jurusan" type="text" class="form-control" placeholder="jurusan" autocomplete="off" required/>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-user-tie"></span>
+                    </div>
+                  </div>
+                </div>
+                <!-- kelas -->
+                <div class="input-group mb-3">
+                  <select name="kelas" class="form-control" required>
+                      <option value=""> = Kelas = </option>
+                      <option value="10"> 10 </option>
+                      <option value="11"> 11 </option>
+                      <option value="12"> 12 </option>
+                  </select>
                 </div>
                 <?php if($user == "admin" && $rule["role"] == "2") :?>
                 <!-- sekolah -->
@@ -84,6 +102,11 @@
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="form-group p-2">
+                <label for="upload">Kirimkan Nilai Semester Akhir Siswa</label>
+                <input type="file" class="form-control-file" name="upload" id="upload" required>
+                <label for="upload">Tipe .pdf maksimal 1MB.</label>
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>

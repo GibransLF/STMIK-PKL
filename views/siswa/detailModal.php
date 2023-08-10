@@ -37,6 +37,31 @@
               </div>
             </div>
           </div>
+          <!-- Jurusan -->
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Jurusan:</label>
+            <div class="col-sm-9">
+              <div class="input-group mb-3">
+                <input name="jurusan" type="text" class="form-control" value="<?= $row["jurusan"] ?>" placeholder="<?= $row["jurusan"] ?>" disabled/>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-user"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Kelas -->
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Kelas:</label>
+            <div class="col-sm-9">
+              <div class="input-group mb-3">
+                <select name="kelas" class="form-control" disabled>
+                    <option value="<?= $row["kelas"] ?>"><?= $row["kelas"] ?></option>
+                </select>
+              </div>
+            </div>
+          </div>
           <!-- asal sekolah -->
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Asal Sekolah:</label>

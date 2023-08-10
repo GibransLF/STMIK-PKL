@@ -72,86 +72,99 @@ function tambahPembimbing($data){
     //ambil dari input form
     // Validasi File PDF
     if (isset($_FILES["upload"]) && $_FILES["upload"]["error"] === UPLOAD_ERR_OK) {
-    $fileType = strtolower(pathinfo($_FILES["upload"]["name"], PATHINFO_EXTENSION));
-    $fileSize = $_FILES["upload"]["size"];
-
+        $fileType = strtolower(pathinfo($_FILES["upload"]["name"], PATHINFO_EXTENSION));
+        $fileSize = $_FILES["upload"]["size"];
+    
         // Validasi tipe file (harus PDF)
         if ($fileType !== "pdf") {
-            $_SESSION["error"] = "File yang diupload harus berupa PDF.";
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit;
+          $_SESSION["error"] = "File yang diupload harus berupa PDF.";
+          header('Location: ' . $_SERVER['HTTP_REFERER']);
+          exit;
         }
-
-            // Validasi ukuran file (maksimum 1 MB)
-            $maxFileSize = 1 * 1024 * 1024; // 1 MB dalam bytes
+    
+        // Validasi ukuran file (maksimum 1 MB)
+        $maxFileSize = 1 * 1024 * 1024; // 1 MB dalam bytes
         if ($fileSize > $maxFileSize) {
-            $_SESSION["error"] = "Ukuran file terlalu besar. Maksimum 1 MB.";
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit;
+          $_SESSION["error"] = "Ukuran file terlalu besar. Maksimum 1 MB.";
+          header('Location: ' . $_SERVER['HTTP_REFERER']);
+          exit;
         }
-
+    
         // Mengganti nama file dengan timestamp + uniqid + .pdf
-        $newFileName = date("dmY") . uniqid() . ".pdf";
+        $newFileName = "P" . date("dmY") . uniqid() . ".pdf";
         $targetDir = "../../upload/";
         $targetFile = $targetDir . $newFileName;
-
-        // Pindahkan file yang diupload ke folder uploads dengan nama yang baru
-        if (!move_uploaded_file($_FILES["upload"]["tmp_name"], $targetFile)) {
-            $_SESSION["error"] = "Terjadi kesalahan saat mengupload file.";
-            exit;
-        }
-    }
-    else {
-    $_SESSION["error"] = "Harap pilih file PDF yang akan diupload.";
-    exit;
-    }
-
-    $ni         = $_POST["ni"];
-    $nama       = $_POST["nama"];
-    $sekolah    = $_POST["sekolah"];
-    $alamat     = $_POST["alamat"];
-    $kontak     = $_POST["kontak"];
-    $upload     = $newFileName;
-    $username   = $_POST["username"];
-    $pass       = $_POST["pass"];
-    $status     = "mendaftar";
-
-
-    if ( empty($ni) || empty($nama) || empty($sekolah) || empty($alamat) || empty($kontak) || empty($username) || empty($pass)) {
-        // Jika ada input yang kosong, tampilkan pesan error
-        $_SESSION["error"] = "Harap lengkapi semua input!";
+        
     } 
     else {
-        // Jika semua input terisi, lanjutkan proses
-        require "../template/cekUser.php";
-        if ($cekNiPembimbing > 0 || $cekNiAdmin > 0 || $cekNiSiswa > 0) {
-            $_SESSION["error"] = "Nomor Induk telah digunakan!";
-        } 
-        elseif (mysqli_num_rows($resultUserP) > 0 || mysqli_num_rows($resultUserA) > 0 || mysqli_num_rows($resultUserS) > 0) {
-            $_SESSION["error"] = "Username telah digunakan!";
+        $_SESSION["error"] = "Harap pilih file PDF yang akan diupload.";
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+      }
+      
+        $ni             = $_POST["ni"];
+        $nama           = $_POST["nama"];
+        $sekolah        = $_POST["sekolah"];
+        $alamat         = $_POST["alamat"];
+        $kontak         = $_POST["kontak"];
+        $posisi         = $_POST["posisi"];
+        $upload         = $newFileName;
+        $username       = $_POST["username"];
+        $pass           = $_POST["pass"];
+        $status         = "mendaftar";
+        $npsn           = $_POST["npsn"];
+        $alamat_sekolah = $_POST["alamat_sekolah"];
+        $nomor_sekolah  = $_POST["nomor_sekolah"];
+        $email_sekolah  = $_POST["email_sekolah"];
+    
+        
+        if ( empty($ni) || empty($nama) || empty($sekolah) || empty($alamat) || empty($kontak) || empty($posisi) || empty($username) || empty($pass) || empty($npsn) || empty($alamat_sekolah) || empty($nomor_sekolah) || empty($email_sekolah) ) {
+          // Jika ada input yang kosong, tampilkan pesan error
+          $_SESSION["error"] = "Harap lengkapi semua input!";
         } 
         else {
+          // Jika semua input terisi, lanjutkan proses
+    
+          require "../template/cekUser.php";
+    
+          if ($cekNiPembimbing > 0 || $cekNiAdmin > 0 || $cekNiSiswa > 0) {
+            $_SESSION["error"] = "Nomor Induk telah digunakan!";
+          } elseif (mysqli_num_rows($resultUserP) > 0 || mysqli_num_rows($resultUserA) > 0 || mysqli_num_rows($resultUserS) > 0) {
+            $_SESSION["error"] = "Username telah digunakan!";
+          } else {
+            // Pindahkan file yang diupload ke folder uploads dengan nama yang baru
+            if (!move_uploaded_file($_FILES["upload"]["tmp_name"], $targetFile)) {
+            $_SESSION["error"] = "Terjadi kesalahan saat mengupload file.";
+            exit;
+            }
+    
             $pass = password_hash($pass, PASSWORD_DEFAULT);
-            $insert = "INSERT INTO pembimbing VALUES (NULL, '$ni', '$nama', '$sekolah', '$alamat', '$kontak', '$upload', '$username', '$pass', '$status', NULL, NULL)";
+            $insert = "INSERT INTO pembimbing VALUES (NULL, '$ni', '$nama', '$sekolah', '$alamat', '$kontak', '$posisi', '$upload', '$username', '$pass', '$status', '$npsn', '$alamat_sekolah', '$nomor_sekolah', '$email_sekolah', NULL, NULL)";
             mysqli_query($conn, $insert);
-
+            
             $_SESSION["success"] = "Registrasi berhasil!";
+          }
         }
-    }
 }
 
 function editPembimbing($data){
     global $conn;
 
-    $id         = $data["id"];
-    $ni         = $data["ni"];
-    $nama       = $data["nama"];
-    $sekolah    = $data["sekolah"];
-    $alamat     = $data["alamat"];
-    $kontak     = $data["kontak"];
-    $username   = $data["username"];
+    $id             = $data["id"];
+    $ni             = $_POST["ni"];
+    $nama           = $_POST["nama"];
+    $sekolah        = $_POST["sekolah"];
+    $alamat         = $_POST["alamat"];
+    $kontak         = $_POST["kontak"];
+    $posisi         = $_POST["posisi"];
+    $username       = $_POST["username"];
+    $pass           = $_POST["pass"];
+    $npsn           = $_POST["npsn"];
+    $alamat_sekolah = $_POST["alamat_sekolah"];
+    $nomor_sekolah  = $_POST["nomor_sekolah"];
+    $email_sekolah  = $_POST["email_sekolah"];
 
-    if (empty($ni) || empty($nama) || empty($alamat) || empty($kontak) || empty($username) || empty($sekolah)) {
+    if (empty($ni) || empty($nama) || empty($sekolah) || empty($alamat) || empty($kontak) || empty($posisi) || empty($username) || empty($npsn) || empty($alamat_sekolah) || empty($nomor_sekolah) || empty($email_sekolah)) {
         // Jika ada input yang kosong, tampilkan pesan error
         $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -166,7 +179,7 @@ function editPembimbing($data){
             $_SESSION["error"] = "Username telah digunakan!";
         } 
         else {
-            $query = "UPDATE pembimbing SET ni = '$ni', nama = '$nama', sekolah = '$sekolah', alamat = '$alamat', kontak = '$kontak', username = '$username' WHERE id = '$id'";
+            $query = "UPDATE pembimbing SET ni = '$ni', nama = '$nama', sekolah = '$sekolah', alamat = '$alamat', kontak = '$kontak', posisi = '$posisi', username = '$username', npsn = '$npsn', alamat_sekolah = '$alamat_sekolah', nomor_sekolah ='$nomor_sekolah', email_sekolah = '$email_sekolah' WHERE id = '$id'";
 
             $_SESSION["success"] = "Ubah Data berhasil!";
             return mysqli_query($conn, $query);

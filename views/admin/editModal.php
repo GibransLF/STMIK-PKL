@@ -79,6 +79,7 @@
             <div class="col-sm-9">
               <div class="input-group mb-3">
                 <select name="role" id="role" class="form-control" required>
+                    <option value="<?= $row["role"] ?>"> <?= ( $row["role"] == "2") ? 'Admin' : 'Pembimbing STMIK' ;?> </option>
                     <option value="1">Pembimbing STMIK</option>
                     <option value="2">Admin</option>
                   </option>

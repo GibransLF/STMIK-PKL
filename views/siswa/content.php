@@ -59,7 +59,10 @@
                         <a data-toggle="modal" data-target="#statusModal<?= $row["id"] ?>" 
                         class="
                           <?php 
-                          if($row["status"] == "proses"){
+                          if($row["status"] == "mendaftar"){
+                            echo "text-success";
+                          }
+                          elseif($row["status"] == "proses"){
                             echo "text-warning";
                           } 
                           elseif($row["status"] == "selesai"){
@@ -74,7 +77,7 @@
                         </a>
                       </td>
                         <?php 
-                        if($rule["role"] != "1" && $statusUser == "proses"){
+                        if($user == "admin" && $statusUser == "proses"){
                         include "statusModal.php" ;
                         }
                         ?>

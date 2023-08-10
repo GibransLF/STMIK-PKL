@@ -48,9 +48,19 @@
 
       if (password_verify($pass, $hashPassSiswa)) {
         $_SESSION["login_id"] = $rowSiswa["id"];
-        header('location: views/dashboard/index_dashboard.php');
-        $_SESSION["sesi"] = true;
-        $_SESSION["user"] = "siswa";
+        
+        //cek jika status diTolak atau Mendaftar
+        $statusUser = $rowSiswa["status"];
+        if($statusUser == "tolak" || $statusUser == "mendaftar"){
+          header('location: status.php');
+          $_SESSION["sesi"] = false;
+          $_SESSION["user"] = "siswa";
+        }
+        else{
+          header('location: views/dashboard/index_dashboard.php');
+          $_SESSION["sesi"] = true;
+          $_SESSION["user"] = "siswa";
+        }
       } 
       elseif (password_verify($pass, $hashPassPembimbing)) {
         $_SESSION["login_id"] = $rowPembimbing["id"];
@@ -173,6 +183,13 @@
     <script>toastr.error('<?= $_SESSION["error"] ?>')</script>
     <?php 
     unset($_SESSION["error"]);
-    endif; ?>
+  endif; ?>
+
+<!-- tampilan success -->
+<?php if(isset($_SESSION["success"]) && !empty($_SESSION["success"])): ?>
+  <script>toastr.success('<?= $_SESSION["success"] ?>');</script>
+  <?php 
+  unset($_SESSION["success"]);
+  endif; ?>
   </body>
 </html>

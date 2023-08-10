@@ -25,7 +25,7 @@ if(isset($_POST["submit"])){
     }
 
     // Mengganti nama file dengan timestamp + uniqid + .pdf
-    $newFileName = "P" . date("dmY") . uniqid() . ".pdf";
+    $newFileName = date("dmY") . uniqid() . ".pdf";
     $targetDir = "upload/";
     $targetFile = $targetDir . $newFileName;
     
@@ -41,7 +41,6 @@ else {
     $sekolah        = $_POST["sekolah"];
     $alamat         = $_POST["alamat"];
     $kontak         = $_POST["kontak"];
-    $posisi         = $_POST["posisi"];
     $upload         = $newFileName;
     $username       = $_POST["username"];
     $pass           = $_POST["pass"];
@@ -52,7 +51,7 @@ else {
     $email_sekolah  = $_POST["email_sekolah"];
 
     
-    if ( empty($ni) || empty($nama) || empty($sekolah) || empty($alamat) || empty($kontak) || empty($posisi) || empty($username) || empty($pass) || empty($npsn) || empty($alamat_sekolah) || empty($nomor_sekolah) || empty($email_sekolah) ) {
+    if ( empty($ni) || empty($nama) || empty($sekolah) || empty($alamat) || empty($kontak) || empty($username) || empty($pass) || empty($npsn) || empty($alamat_sekolah) || empty($nomor_sekolah) || empty($email_sekolah) ) {
       // Jika ada input yang kosong, tampilkan pesan error
       $_SESSION["error"] = "Harap lengkapi semua input!";
     } 
@@ -73,7 +72,7 @@ else {
         }
 
         $pass = password_hash($pass, PASSWORD_DEFAULT);
-        $insert = "INSERT INTO pembimbing VALUES (NULL, '$ni', '$nama', '$sekolah', '$alamat', '$kontak', '$posisi', '$upload', '$username', '$pass', '$status', '$npsn', '$alamat_sekolah', '$nomor_sekolah', '$email_sekolah', NULL, NULL)";
+        $insert = "INSERT INTO pembimbing VALUES (NULL, '$ni', '$nama', '$sekolah', '$alamat', '$kontak', '$upload', '$username', '$pass', '$status', '$npsn', '$alamat_sekolah', '$nomor_sekolah', '$email_sekolah', NULL, NULL)";
         mysqli_query($conn, $insert);
         
         $_SESSION["success"] = "Registrasi berhasil!";
@@ -203,14 +202,6 @@ else {
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-phone"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input name="posisi" type="text" class="form-control" placeholder="Posisi menjabat sebagai" autocomplete="off"/>
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-project-diagram"></span>
                                     </div>
                                 </div>
                             </div>

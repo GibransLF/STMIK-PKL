@@ -38,7 +38,35 @@
               </div>
             </div>
           </div>
-          <?php if($user == "admin" && $rule["role"] == "3") :?>
+          <!-- Jurusan -->
+          <div class="form-group row">
+            <label for="jurusan" class="col-sm-3 col-form-label">Jurusan:</label>
+            <div class="col-sm-9">
+              <div class="input-group mb-3">
+                <input name="jurusan" id="jurusan" type="text" class="form-control" value="<?= $row["jurusan"] ?>" placeholder="<?= $row["jurusan"] ?>" required/>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-user"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Kelas -->
+          <div class="form-group row">
+            <label for="nama" class="col-sm-3 col-form-label">Kelas:</label>
+            <div class="col-sm-9">
+              <div class="input-group mb-3">
+                <select name="kelas" class="form-control" required>
+                    <option value="<?= $row["kelas"] ?>"><?= $row["kelas"] ?></option>
+                    <option value="10"> 10 </option>
+                    <option value="11"> 11 </option>
+                    <option value="12"> 12 </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <?php if($user == "admin") :?>
           <!-- asal sekolah -->
           <div class="form-group row">
             <label for="sekolah" class="col-sm-3 col-form-label">Asal Sekolah:</label>

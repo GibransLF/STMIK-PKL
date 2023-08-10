@@ -10,14 +10,19 @@
             <form action="" method="POST">
               <div class="modal-body">
               <center>
+                <span class="text-danger">Tolak</span> &lt;=
+                <span class="text-success">Mendaftar</span> =&gt;
                 <span class="text-warning">Proses</span> =&gt;
                 <span class="text-primary">Selesai</span>
+                <br>
+                <br>
+                <a href="../../upload/<?= $row["upload"] ?>" target="_blank">Buka PDF</a>
               </center>
                 <input type="hidden" name="id" value="<?= $row["id"] ?>">
                 <input type="hidden" name="status" value="<?= $row["status"] ?>">
               </div>
               <div class="modal-footer justify-content-between">
-                <?= ( $row["status"] == "proses") ? '' : '
+                <?= ( $row["status"] == "tolak") ? '' : '
                 <button type="submit" name="previous" class="btn btn-danger">tahap Sebelumnya</button>';?>
                 
                 <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
